@@ -130,7 +130,7 @@ class Seeder {
         
         let workout = HKWorkout(activityType: .running,
                                 start: Date().addingTimeInterval(daysPrior * dayInterval),
-                                end: Date().addingTimeInterval(daysPrior * dayInterval),
+                                end: Date().addingTimeInterval(daysPrior * dayInterval + exerciseMins*60),
                                 duration: exerciseMins * 60,
                                 totalEnergyBurned: calorieQuantity,
                                 totalDistance: distQuantity,
