@@ -128,10 +128,14 @@ class Seeder {
         let calorieQuantity = HKQuantity(unit: HKUnit.kilocalorie(), doubleValue: 200)
         let distQuantity = HKQuantity(unit: HKUnit.mile(), doubleValue: 4)
         
+        let duration = exerciseMins * 60
+        let startDate = Date().addingTimeInterval(daysPrior * dayInterval - duration)
+        let endDate = Date().addingTimeInterval(daysPrior * dayInterval)
+        
         let workout = HKWorkout(activityType: .running,
-                                start: Date().addingTimeInterval(daysPrior * dayInterval),
-                                end: Date().addingTimeInterval(daysPrior * dayInterval + exerciseMins*60),
-                                duration: exerciseMins * 60,
+                                start: startDate,
+                                end: endDate,
+                                duration: duration,
                                 totalEnergyBurned: calorieQuantity,
                                 totalDistance: distQuantity,
                                 device: HKDevice.local(),
@@ -145,14 +149,35 @@ class Seeder {
                 var samples: [HKQuantitySample] = []
                 let heartRateUnit = HKUnit(from: "count/min")
                 let heartRateQuantity = HKQuantity(unit: heartRateUnit, doubleValue: 95)
+                let heartRateQuantity2 = HKQuantity(unit: heartRateUnit, doubleValue: 96)
+                let heartRateQuantity3 = HKQuantity(unit: heartRateUnit, doubleValue: 97)
+                let heartRateQuantity4 = HKQuantity(unit: heartRateUnit, doubleValue: 94)
+                
                 let heartRateForIntervalSample =
                     HKQuantitySample(type: HealthValues.heartRate!, quantity: heartRateQuantity,
                                      start: Date(), end: Date())
                 let heartRateForIntervalSample2 =
+                    HKQuantitySample(type: HealthValues.heartRate!, quantity: heartRateQuantity2,
+                                     start: startDate.addingTimeInterval(1), end: endDate.addingTimeInterval(2))
+                let heartRateForIntervalSample3 =
+                    HKQuantitySample(type: HealthValues.heartRate!, quantity: heartRateQuantity3,
+                                     start: startDate.addingTimeInterval(2), end: endDate.addingTimeInterval(3))
+                let heartRateForIntervalSample4 =
                     HKQuantitySample(type: HealthValues.heartRate!, quantity: heartRateQuantity,
-                                     start: Date().addingTimeInterval(20), end: Date().addingTimeInterval(40))
+                                     start: startDate.addingTimeInterval(3), end: endDate.addingTimeInterval(4))
+                let heartRateForIntervalSample5 =
+                    HKQuantitySample(type: HealthValues.heartRate!, quantity: heartRateQuantity4,
+                                     start: startDate.addingTimeInterval(4), end: endDate.addingTimeInterval(5))
+                let heartRateForIntervalSample6 =
+                    HKQuantitySample(type: HealthValues.heartRate!, quantity: heartRateQuantity,
+                                     start: startDate.addingTimeInterval(5), end: endDate.addingTimeInterval(6))
                 samples.append(heartRateForIntervalSample)
                 samples.append(heartRateForIntervalSample2)
+                samples.append(heartRateForIntervalSample3)
+                samples.append(heartRateForIntervalSample4)
+                samples.append(heartRateForIntervalSample5)
+                samples.append(heartRateForIntervalSample6)
+                samples.append(heartRateForIntervalSample4)
                 
                 self.store?.add(samples, to: workout) {
                     (success, error) in
